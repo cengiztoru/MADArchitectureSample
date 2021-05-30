@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.cengiztoru.madarchitecturesample.databinding.FragmentUserProfileBinding
 import com.cengiztoru.madarchitecturesample.viewmodels.UserProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 private const val USER_ID = "user_id"
 
+@AndroidEntryPoint
 class UserProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentUserProfileBinding
