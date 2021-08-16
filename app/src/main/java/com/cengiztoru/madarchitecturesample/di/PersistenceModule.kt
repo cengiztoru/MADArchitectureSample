@@ -35,4 +35,16 @@ object PersistenceModule {
         db: MADArchitectureDatabase
     ) = db.userSearchDao()
 
+    /** --------------------------------------------------------------- */
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class UserSearchFreshTimeMillis
+
+    @UserSearchFreshTimeMillis
+    @Provides
+    fun provideSearchFreshTimeMillis(): Int = oneWeekMillis()
+
+    /** --------------------------------------------------------------- */
+
+
 }
