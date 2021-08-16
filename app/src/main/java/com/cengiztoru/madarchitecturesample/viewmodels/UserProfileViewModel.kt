@@ -2,8 +2,9 @@ package com.cengiztoru.madarchitecturesample.viewmodels
 
 import androidx.lifecycle.*
 import com.cengiztoru.madarchitecturesample.data.model.User
-import com.cengiztoru.madarchitecturesample.repository.UserRepository
+import com.cengiztoru.madarchitecturesample.repository.SearchUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,23 +15,24 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class UserProfileViewModel @Inject constructor(
-    private val userRepository: UserRepository,
+    private val searchUserRepository: SearchUserRepository,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val USER_ID = "user_id"
+    private val SEARCH_QUERY = "search_query"
 
-    val userId: String = savedStateHandle[USER_ID]
+    val searchQuery: String = savedStateHandle[SEARCH_QUERY]
         ?: throw IllegalArgumentException("missing user id")
 
-
-    val _user: MutableLiveData<User> = MutableLiveData(User())
+    private val _user: MutableLiveData<User> = MutableLiveData(User())
     val user: LiveData<User>
         get() = _user
 
     init {
         viewModelScope.launch {
-            _user.value = userRepository.getUser(userId)
+            searchUserRepository.searchUser(searchQuery).collect {
+                _user.value = it.user
+            }
         }
     }
 
