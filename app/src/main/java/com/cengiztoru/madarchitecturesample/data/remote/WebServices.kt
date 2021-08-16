@@ -12,5 +12,5 @@ import retrofit2.http.Path
 
 interface Webservices {
     @GET("/users/{user}")
-    suspend fun getUser(@Path("user") userId: String): User
+    suspend fun searchUser(@Path("user") userId: String): User
 }
