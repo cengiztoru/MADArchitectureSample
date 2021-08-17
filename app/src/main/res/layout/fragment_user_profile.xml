@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.user_profile.UserProfileFragment">
+<layout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+    <data>
 
-        <TextView
-            android:id="@+id/tv_user_id"
-            style="@style/TextAppearance.MaterialComponents.Headline3"
+        <variable
+            name="data"
+            type="com.cengiztoru.madarchitecturesample.viewmodels.UserProfileViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.user_profile.UserProfileFragment">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Hello" />
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_user_name"
-            style="@style/TextAppearance.MaterialComponents.Headline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Cengiz TORU" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_search_query"
+                style="@style/TextAppearance.MaterialComponents.Headline3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text='@{"Search Query \n" + data.searchQuery}'
+                tools:text="Hello" />
 
-</FrameLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="64dp" />
+
+            <TextView
+                android:id="@+id/tv_user_id"
+                style="@style/TextAppearance.MaterialComponents.Headline3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text='@{"User Id \n" + data.user.id}'
+                tools:text="Cengiz TORU" />
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

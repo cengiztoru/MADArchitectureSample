@@ -10,41 +10,33 @@ import com.cengiztoru.madarchitecturesample.databinding.FragmentUserProfileBindi
 import com.cengiztoru.madarchitecturesample.viewmodels.UserProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val USER_ID = "user_id"
+private const val SEARCH_QUERY = "search_query"
 
 @AndroidEntryPoint
 class UserProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentUserProfileBinding
-    private var userId: String? = null
+    private var searchQuery: String? = null
 
     private val viewModel: UserProfileViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.tvUserId.text = viewModel.userId
-        setObservers()
-    }
-
-    private fun setObservers() {
-        viewModel.user.observe(viewLifecycleOwner, {
-            //updating ui
-            binding.tvUserName.text = "user name " + it.name
-        })
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUserProfileBinding.inflate(layoutInflater)
-        userId = arguments?.getString(USER_ID)
+        searchQuery = arguments?.getString(SEARCH_QUERY)
+        binding.data = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     companion object {
         fun newInstance(userId: String) = UserProfileFragment().apply {
             val args = Bundle()
-            args.putString(USER_ID, userId)
+            args.putString(SEARCH_QUERY, userId)
             arguments = args
         }
     }

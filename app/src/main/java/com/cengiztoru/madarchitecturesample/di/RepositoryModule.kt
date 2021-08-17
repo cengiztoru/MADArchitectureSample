@@ -1,7 +1,8 @@
 package com.cengiztoru.madarchitecturesample.di
 
+import com.cengiztoru.madarchitecturesample.data.locale.SearchUserDao
 import com.cengiztoru.madarchitecturesample.data.remote.Webservices
-import com.cengiztoru.madarchitecturesample.repository.UserRepository
+import com.cengiztoru.madarchitecturesample.repository.SearchUserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,6 +21,10 @@ object RepositoryModule {
 
     @Provides
     @ViewModelScoped
-    fun provideUserRepository(webservices: Webservices) = UserRepository(webservices)
+    fun provideSearchUserRepository(
+        webservices: Webservices,
+        searchUserDao: SearchUserDao,
+        @PersistenceModule.UserSearchFreshTimeMillis searchFreshTime: Int
+    ) = SearchUserRepository(webservices, searchUserDao, searchFreshTime)
 
 }
